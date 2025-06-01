@@ -241,7 +241,7 @@ create_executive_summary() {
     summary+=$(cat $summary_file)
     summary+="</pre>"
     
-    echo "$summary" > /dev/null
+    # Kembalikan summary untuk HTML report
     echo "$summary"
 }
 
@@ -251,170 +251,173 @@ create_report() {
     local type=$2
     local report_file="report_$(date +%Y%m%d_%H%M%S).html"
     
-    echo "<html>
-    <head>
-        <title>Forensic Analysis Report</title>
-        <style>
-            :root {
-                --primary-color: #2c3e50;
-                --secondary-color: #3498db;
-                --accent-color: #e74c3c;
-                --background-color: #ecf0f1;
-                --text-color: #2c3e50;
-            }
-            
-            pre.ascii-art {
-                font-family: monospace;
-                white-space: pre;
-                font-size: 14px;
-                color: var(--secondary-color);
-                margin: 20px 0;
-                text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-            }
-            
-            .header {
-                text-align: center;
-                margin-bottom: 30px;
-                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-                padding: 20px;
-                border-radius: 10px;
-                color: white;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            }
-            
-            body {
-                padding: 20px;
-                font-family: 'Arial', sans-serif;
-                background-color: var(--background-color);
-                color: var(--text-color);
-                line-height: 1.6;
-                margin: 0;
-                padding: 20px;
-            }
-            
-            h1, h2, h3, h4, h5 {
-                color: var(--primary-color);
-                margin-top: 20px;
-                line-height: 1.4;
-            }
-            
-            h1 {
-                border-bottom: 3px solid var(--secondary-color);
-                padding-bottom: 10px;
-            }
-            
-            hr {
-                border: none;
-                height: 2px;
-                background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-                margin: 20px 0;
-            }
-            
-            pre {
-                color: var(--text-color);
-                background-color: white;
-                padding: 15px;
-                border-radius: 5px;
-                border-left: 4px solid var(--secondary-color);
-                overflow-x: auto;
-                margin: 10px 0;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                font-size: 0.9em;
-                line-height: 1.4;
-            }
-            
-            .result-section {
-                background-color: white;
-                padding: 20px;
-                margin: 20px 0;
-                border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }
-            
-            .timestamp {
-                color: var(--accent-color);
-                font-style: italic;
-            }
-            
-            .tool-header {
-                background-color: var(--primary-color);
-                padding: 10px 15px;
-                border-radius: 5px;
-                margin: 15px 0;
-            }
-            
-            .tool-header h4 {
-                color: white !important;
-                margin: 0;
-                font-size: 1.2em;
-                font-weight: bold;
-                text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
-            }
-            
-            .container {
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 20px;
-            }
-            
-            .sub-header {
-                margin: 10px 0;
-                padding: 5px 15px;
-                border-left: 4px solid var(--secondary-color);
-            }
-            
-            .sub-header h5 {
-                color: var(--secondary-color);
-                margin: 5px 0;
-                font-size: 1.1em;
-                font-weight: normal;
-            }
-            
-            .hash-section {
-                margin: 10px 0;
-                padding: 10px;
-                background-color: #f8f9fa;
-                border-radius: 5px;
-            }
-            
-            .hash-section h6 {
-                color: var(--primary-color);
-                margin: 5px 0;
-                font-size: 1em;
-                font-weight: bold;
-            }
-        </style>
-    </head>
-    <body>
-        <div class='container'>
-            <div class='header'>
-                <pre class='ascii-art'>
+    # Buat file HTML report
+    {
+        echo "<html>
+        <head>
+            <title>Forensic Analysis Report</title>
+            <style>
+                :root {
+                    --primary-color: #2c3e50;
+                    --secondary-color: #3498db;
+                    --accent-color: #e74c3c;
+                    --background-color: #ecf0f1;
+                    --text-color: #2c3e50;
+                }
+                
+                pre.ascii-art {
+                    font-family: monospace;
+                    white-space: pre;
+                    font-size: 14px;
+                    color: var(--secondary-color);
+                    margin: 20px 0;
+                    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+                }
+                
+                .header {
+                    text-align: center;
+                    margin-bottom: 30px;
+                    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                    padding: 20px;
+                    border-radius: 10px;
+                    color: white;
+                    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                }
+                
+                body {
+                    padding: 20px;
+                    font-family: 'Arial', sans-serif;
+                    background-color: var(--background-color);
+                    color: var(--text-color);
+                    line-height: 1.6;
+                    margin: 0;
+                    padding: 20px;
+                }
+                
+                h1, h2, h3, h4, h5 {
+                    color: var(--primary-color);
+                    margin-top: 20px;
+                    line-height: 1.4;
+                }
+                
+                h1 {
+                    border-bottom: 3px solid var(--secondary-color);
+                    padding-bottom: 10px;
+                }
+                
+                hr {
+                    border: none;
+                    height: 2px;
+                    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+                    margin: 20px 0;
+                }
+                
+                pre {
+                    color: var(--text-color);
+                    background-color: white;
+                    padding: 15px;
+                    border-radius: 5px;
+                    border-left: 4px solid var(--secondary-color);
+                    overflow-x: auto;
+                    margin: 10px 0;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                    font-size: 0.9em;
+                    line-height: 1.4;
+                }
+                
+                .result-section {
+                    background-color: white;
+                    padding: 20px;
+                    margin: 20px 0;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                }
+                
+                .timestamp {
+                    color: var(--accent-color);
+                    font-style: italic;
+                }
+                
+                .tool-header {
+                    background-color: var(--primary-color);
+                    padding: 10px 15px;
+                    border-radius: 5px;
+                    margin: 15px 0;
+                }
+                
+                .tool-header h4 {
+                    color: white !important;
+                    margin: 0;
+                    font-size: 1.2em;
+                    font-weight: bold;
+                    text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+                }
+                
+                .container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 20px;
+                }
+                
+                .sub-header {
+                    margin: 10px 0;
+                    padding: 5px 15px;
+                    border-left: 4px solid var(--secondary-color);
+                }
+                
+                .sub-header h5 {
+                    color: var(--secondary-color);
+                    margin: 5px 0;
+                    font-size: 1.1em;
+                    font-weight: normal;
+                }
+                
+                .hash-section {
+                    margin: 10px 0;
+                    padding: 10px;
+                    background-color: #f8f9fa;
+                    border-radius: 5px;
+                }
+                
+                .hash-section h6 {
+                    color: var(--primary-color);
+                    margin: 5px 0;
+                    font-size: 1em;
+                    font-weight: bold;
+                }
+            </style>
+        </head>
+        <body>
+            <div class='container'>
+                <div class='header'>
+                    <pre class='ascii-art'>
 __________                        ________         ______              
 ___  ____/__________________________  ___/____________  /______________
 __  /_   _  __ \\_  ___/  _ \\_  __ \\____ \\_  _ \\  _ \\_  //_/  _ \\_  ___/
 _  __/   / /_/ /  /   /  __/  / / /___/ //  __/  __/  ,<  /  __/  /    
 /_/      \\____//_/    \\___//_/ /_//____/ \\___/\\___//_/|_| \\___//_/     
-                </pre>
-                <h2>Platform Eksaminasi Forensik Digital Otomatis</h2>
-                <p>by Stefanus Zen</p>
-            </div>
-            
-            <h1>Forensic Examination Report</h1>
-            
-            <!-- Tambahkan Executive Summary -->
-            <div class='result-section'>
-                $(create_executive_summary "$type" "$filename")
-            </div>
-            
-            <div class='result-section'>
-                <h2>Informasi File</h2>
-                <p><strong>Nama File:</strong> $filename</p>
-                <p class='timestamp'><strong>Tanggal Eksaminasi:</strong> $(date '+%Y-%m-%d %H:%M:%S')</p>
-            </div>
-            
-            <hr>
-            
-            <h3>Hasil Eksaminasi Detail:</h3>" > $report_file
+                    </pre>
+                    <h2>Platform Eksaminasi Forensik Digital Otomatis</h2>
+                    <p>by Stefanus Zen</p>
+                </div>
+                
+                <h1>Forensic Examination Report</h1>
+                
+                <!-- Tambahkan Executive Summary -->
+                <div class='result-section'>
+                    $(create_executive_summary "$type" "$filename" 2>/dev/null)
+                </div>
+                
+                <div class='result-section'>
+                    <h2>Informasi File</h2>
+                    <p><strong>Nama File:</strong> $filename</p>
+                    <p class='timestamp'><strong>Tanggal Eksaminasi:</strong> $(date '+%Y-%m-%d %H:%M:%S')</p>
+                </div>
+                
+                <hr>
+                
+                <h3>Hasil Eksaminasi Detail:</h3>"
+    } > "$report_file"
     
     # Fungsi untuk menambahkan hasil eksaminasi ke report
     add_analysis_section() {
